@@ -5,6 +5,16 @@
     <title>Список клиентов</title>
 </head>
 <body>
-
+{% for client in clients %}
+<table border="1">
+   <caption>Таблица имен</caption>
+   <tr>
+    <th>Фамилия</th>
+    <th>Имя</th>
+    <th>Отчество</th>
+   </tr>
+   <tr><td>{{ client.clients_lastname }}</td><td>{{ client.clients_name  }}</td><td>{{ client.clients_middlename }}</td></tr>
+</table>
+{% endfor%}
 </body>
 </html>

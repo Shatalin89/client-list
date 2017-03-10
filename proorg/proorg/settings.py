@@ -27,9 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-TEMPLATE_DIRS = [
-    '/home/a_shatalin/python/client-list/proorg/templates/'
-]
+
 
 # Application definition
 
@@ -58,7 +56,7 @@ ROOT_URLCONF = 'proorg.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/home/a_shatalin/python/django/client-list/proorg/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
