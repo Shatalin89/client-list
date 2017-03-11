@@ -1,14 +1,13 @@
 {% extends 'index.html' %}
 
 {% block clients %}
-<form action="">
-    <p>Имя:<input type="text" value="{{ client.clients_name }}" ></p>
-    <p>Имя:<input type="text" value="{{ client.clients_middlename }}"></p>
-    <p>Имя:<input type="text" value="{{ client.clients_lastname }}"></p>
-
-
-    {{ client.clients_age }}
-    {{ client.clients_telephone }}
-    {{ client.clients_comments }}
+<form action="" >
+    <p>Имя:<input type="text" value="{{ client.clients_name }}" disabled></p>
+    <p>Отчество:<input type="text" value="{{ client.clients_middlename }}" disabled></p>
+    <p>Фамилия:<input type="text" value="{{ client.clients_lastname }}" disabled></p>
+    <p>Номер телефона:<input type="tel" value="{{ client.clients_telephone}}" disabled> </p>
+    <p>Дата рождения:<input type="text" value="{{ client.clients_age }}" disabled></p>
+    <p>Почта:<input type="email" value="{{ client.clients_email }}" disabled></p>
+    <p>О клиенте:<textarea disabled>{{ client.clients_comments }}</textarea></p>
 </form>
 {% endblock %}

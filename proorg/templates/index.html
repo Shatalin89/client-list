@@ -1,31 +1,18 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Электронный организатор</title>
-    <style>
-        ul.hr {
-            margin: 0; /* Обнуляем значение отступов */
-            padding: 4px; /* Значение полей */
-        }
-        ul.hr li {
-            display: inline; /* Отображать как строчный элемент */
-            margin-right: 5px; /* Отступ слева */
-            border: 1px solid #000; /* Рамка вокруг текста */
-            padding: 3px; /* Поля вокруг текста */
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/css.css' %}">
 </head>
 <body>
 <h1>Главная страница</h1>
 
   <ul class="hr">
-      <li><a href="../../">Главная</a></li>
-      <li><a href="../../../clients/all/">Клиенты</a></li>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/clients/all/">Клиенты</a></li>
       <li><a href="../../admin/">Админка</a></li>
-
-
-
   </ul>
 <hr>
 <br>
