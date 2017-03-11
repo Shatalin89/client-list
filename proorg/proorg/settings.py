@@ -56,7 +56,8 @@ ROOT_URLCONF = 'proorg.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/a_shatalin/python/django/client-list/proorg/templates/'],
+        'DIRS': ['./templates/',
+                 './clientlist/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
