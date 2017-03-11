@@ -4,18 +4,19 @@
 <table border="1">
     <caption>Таблица имен</caption>
     <tr>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Отчество</th>
+        <th>id</th>
+        <th>ФИО</th>
         <th>Телефон</th>
+        <th>О клиенте</th>
     </tr>
     {% for client in clients %}
     <tr>
-        <td>{{ client.clients_lastname }}</td>
-        <td>{{ client.clients_name }}</td>
-        <td>{{ client.clients_middlename }}</td>
+        <td>{{ client.id }}</td>
+        <td><a href="../../clients/get/{{ client.id }}/">{{ client.get_fio }}</a></td>
         <td>{{ client.clients_telephone | phone2numeric}}</td>
+        <td>{{ client.clients_comments}}</td>
     </tr>
     {% endfor%}
+    <tr><td> Добавить клиента</td></tr>
 </table>
 {% endblock %}

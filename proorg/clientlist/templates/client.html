@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'index.html' %}
 
-</body>
-</html>
+{% block clients %}
+<form action="">
+    <p>Имя:<input type="text" value="{{ client.clients_name }}" ></p>
+    <p>Имя:<input type="text" value="{{ client.clients_middlename }}"></p>
+    <p>Имя:<input type="text" value="{{ client.clients_lastname }}"></p>
+
+
+    {{ client.clients_age }}
+    {{ client.clients_telephone }}
+    {{ client.clients_comments }}
+</form>
+{% endblock %}
