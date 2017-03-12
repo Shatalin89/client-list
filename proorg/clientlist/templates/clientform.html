@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+
+{% block clients %}
+<form action="/client/post/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" class="button" value="Add">
+</form>
+{% endblock %}
+
+
