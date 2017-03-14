@@ -1,13 +1,15 @@
 {% extends 'index.html' %}
 
 {% block clients %}
-<form action="" >
-    <p>Имя:<input type="text" value="{{ client.clients_name }}" enabled></p>
-    <p>Отчество:<input type="text" value="{{ client.clients_middlename }}" disabled></p>
-    <p>Фамилия:<input type="text" value="{{ client.clients_lastname }}" disabled></p>
-    <p>Номер телефона:<input type="tel" value="{{ client.clients_telephone}}" disabled> </p>
-    <p>Дата рождения:<input type="text" value="{{ client.clients_age }}" disabled></p>
-    <p>Почта:<input type="email" value="{{ client.clients_email }}" disabled></p>
-    <p>О клиенте:<textarea disabled>{{ client.clients_comments }}</textarea></p>
+<form action="/client/post/" method="post" >
+    {% csrf_token %}
+    <p>Имя:<input type="text" name="clients_name" value="{{ client.clients_name }}" enabled></p>
+    <p>Отчество:<input type="text" name="clients_middlename" value="{{ client.clients_middlename }}" enabled></p>
+    <p>Фамилия:<input type="text" name="clients_lastname" value="{{ client.clients_lastname }}" enabled></p>
+    <p>Номер телефона:<input type="tel" name="clients_telephone" value="{{ client.clients_telephone}}" enabled> </p>
+    <p>Дата рождения:<input type="text" name="clients_age" value="{{ client.clients_age }}" enabled></p>
+    <p>Почта:<input type="email" name="clients_email" value="{{ client.clients_email }}" enabled></p>
+    <p>О клиенте:<textarea name="clients_comments" enabled>{{ client.clients_comments }}</textarea></p>
+    <input type="submit" class="button" value="Добавить">
 </form>
 {% endblock %}

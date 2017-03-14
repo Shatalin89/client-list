@@ -13,7 +13,10 @@ def clients(request):
     return render_to_response('clientlist.html', {'clients': Clients.objects.all()})
 
 def client(request, clients_id=1):
-    return render_to_response('client.html', {'client': Clients.objects.get(id=clients_id)})
+    args ={}
+    args.update(csrf(request))
+    args['client'] = Clients.objects.get(id=clients_id)
+    return render_to_response('client.html', args)
 
 def index(request):
     t = get_template('index.html')
@@ -30,9 +33,8 @@ def addclient(request):
 
 def postclient(request):
     if request.POST:
-        form = ClientsForm(request.POST)
-        form.save()
-        print(form.is_valid())
+        client = Clients(request.POST)
+        client.save()
 
 
     return redirect('/clients/all/')
