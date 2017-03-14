@@ -32,8 +32,17 @@ def addclient(request):
 
 
 def postclient(request):
+    client = Clients.objects.
     if request.POST:
-        client = Clients(request.POST)
+
+        clients_name = request.POST['clients_name']
+        clients_middlename = request.POST['clients_middlename']
+        clients_lastname = request.POST['clients_lastname']
+        clients_age = request.POST['clients_age']
+        clients_telephone = request.POST['clients_telephone']
+        clients_email = request.POST['clients_email']
+        clients_comments = request.POST['clients_comments']
+        client = Clients(clients_name, clients_middlename, clients_lastname, clients_age, clients_telephone, clients_email, clients_comments)
         client.save()
 
 
