@@ -1,15 +1,18 @@
 {% extends 'index.html' %}
 
 {% block clients %}
-<form action="/client/post/" method="post" >
-    {% csrf_token %}
-    <p>Имя:<input type="text" name="clients_name" value="{{ client.clients_name }}" enabled></p>
-    <p>Отчество:<input type="text" name="clients_middlename" value="{{ client.clients_middlename }}" enabled></p>
-    <p>Фамилия:<input type="text" name="clients_lastname" value="{{ client.clients_lastname }}" enabled></p>
-    <p>Номер телефона:<input type="tel" name="clients_telephone" value="{{ client.clients_telephone}}" enabled> </p>
-    <p>Дата рождения:<input type="text" name="clients_age" value="{{ client.clients_age }}" enabled></p>
-    <p>Почта:<input type="email" name="clients_email" value="{{ client.clients_email }}" enabled></p>
-    <p>О клиенте:<textarea name="clients_comments" enabled>{{ client.clients_comments }}</textarea></p>
-    <input type="submit" class="button" value="Добавить">
+
+ <form action="/client/post/" method="post" >
+     {% csrf_token %}
+     <p>Фамилия:<input type="text" name="clients_lastname" value="{{ client.clients_lastname }}" {{ status }}></p>
+     <p>Имя:<input type="text" name="clients_name" value="{{ client.clients_name }}" {{ status }}></p>
+     <p>Отчество:<input type="text" name="clients_middlename" value="{{ client.clients_middlename }}" {{ status }}></p>
+     <p>Номер телефона:<input type="tel" name="clients_telephone" value="{{ client.clients_telephone}}" {{ status }}> </p>
+     <p>Дата рождения:<input type="date" name="clients_age" value="{{ client.clients_age|date:'d/m/Y' }}" {{ status }}></p>
+     <p>Почта:<input type="email" name="clients_email" value="{{ client.clients_email }}" {{ status }}></p>
+     <p>О клиенте:<textarea name="clients_comments" {{ status }}>{{ client.clients_comments }}</textarea></p>
+     {% if status == 'enable' %}
+        <input type="submit" class="button" value="Добавить">
+     {% endif %}
 </form>
 {% endblock %}

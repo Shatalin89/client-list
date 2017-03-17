@@ -6,6 +6,5 @@ urlpatterns = [
     url(r'^clients/add/$', addclient),
     url(r'^client/post/$', postclient),
     url(r'^clients/get/(?P<clients_id>\d+)/$', client),
-
     url(r'^', index),
 ]

@@ -124,5 +124,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     # ...
-    ("css", "/static/style/css/"),
+    ("css", "./static/style/css/"),
+    ("foundation", "./static/style/foundation/"),
 ]

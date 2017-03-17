@@ -1,21 +1,24 @@
 {% extends 'index.html' %}
 
 {% block clients %}
-<table border="1">
+<table>
     <caption>Таблица имен</caption>
     <tr>
         <th>ФИО</th>
         <th>Телефон</th>
-        <th>О клиенте</th>
         <th>Почта</th>
+        <th>О клиенте</th>
+
     </tr>
     {% for client in clients %}
-    <tr>
-        <td><a href="../../clients/get/{{ client.id }}/">{{ client.get_fio }}</a></td>
-        <td>{{ client.clients_telephone | phone2numeric}}</td>
-        <td>{{ client.clients_comments}}</td>
-        <td>{{ client.clients_email }}</td>
-    </tr>
+
+        <tr>
+            <td><a href="../../clients/get/{{ client.id }}/">{{ client.get_fio }}</a></td>
+            <td>{{ client.clients_telephone | phone2numeric}}</td>
+            <td>{{ client.clients_email }}</td>
+            <td>{{ client.clients_comments}}</td>
+        </tr>
+
     {% endfor%}
     <tr><td><a href="/clients/add/">Добавить клиента</a></td></tr>
 </table>

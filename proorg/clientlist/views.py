@@ -12,10 +12,11 @@ from django.shortcuts import redirect
 def clients(request):
     return render_to_response('clientlist.html', {'clients': Clients.objects.all()})
 
-def client(request, clients_id=1):
+def client(request, clients_id):
     args ={}
     args.update(csrf(request))
     args['client'] = Clients.objects.get(id=clients_id)
+    args['status'] = 'disabled'
     return render_to_response('client.html', args)
 
 def index(request):
@@ -24,17 +25,14 @@ def index(request):
     return HttpResponse(html)
 
 def addclient(request):
-    client_form = ClientsForm
-    args = {}
+    args ={}
     args.update(csrf(request))
-    args['form'] = client_form
-    return render_to_response('clientform.html', args)
+    args['status'] = 'enable'
+    return render_to_response('client.html', args)
 
 
 def postclient(request):
-    client = Clients.objects.
     if request.POST:
-
         clients_name = request.POST['clients_name']
         clients_middlename = request.POST['clients_middlename']
         clients_lastname = request.POST['clients_lastname']
@@ -42,8 +40,8 @@ def postclient(request):
         clients_telephone = request.POST['clients_telephone']
         clients_email = request.POST['clients_email']
         clients_comments = request.POST['clients_comments']
-        client = Clients(clients_name, clients_middlename, clients_lastname, clients_age, clients_telephone, clients_email, clients_comments)
+        client = Clients(clients_name = clients_name, clients_middlename = clients_middlename,clients_lastname = clients_lastname,clients_age = clients_age, clients_telephone= clients_telephone, clients_email = clients_email, clients_comments = clients_comments)
         client.save()
-
-
     return redirect('/clients/all/')
+
+
