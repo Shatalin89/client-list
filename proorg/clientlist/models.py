@@ -22,7 +22,6 @@ class Clients(models.Model):
 class EventInfo(models.Model):
     class Meta:
         db_table = 'event_info'
-
     event_info_name = models.CharField(max_length = 100)
     event_info_description = models.TextField(null=True)
     event_info_poster = models.ImageField(null=True)

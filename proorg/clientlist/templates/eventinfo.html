@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block clients %}
+<table>
+    <caption>Таблица имен</caption>
+    <tr>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Картинка</th>
+
+    </tr>
+    {% for events in eventinfo %}
+        <tr>
+            <td><a href="/event/get/{{ eventinfo.id }}/">{{ events.event_info_name }}</a></td>
+            <td>{{ events.event_info_description}}</td>
+            <td>{{ events.event_info_poster }}</td>
+        </tr>
+    {% endfor%}
+    <tr><td><a href="/eventinfo/add/">Добавить мероприятие</a></td></tr>
+</table>
+{% endblock %}
