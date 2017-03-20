@@ -1378,10 +1378,10 @@ a {
   color: #1779ba;
   text-decoration: none;
   cursor: pointer; }
-  a:hover, a:focus {
+
+a:hover, a:focus {
     color: #1468a0; }
-  a img {
-    border: 0; }
+
 
 hr {
   clear: both;

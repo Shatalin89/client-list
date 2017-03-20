@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 
 {% block clients %}
+{% load staticfiles %}
 <table>
     <caption>Таблица имен</caption>
     <tr>
@@ -8,6 +9,7 @@
         <th>Телефон</th>
         <th>Почта</th>
         <th>О клиенте</th>
+        
 
     </tr>
     {% for client in clients %}
@@ -17,6 +19,7 @@
             <td>{{ client.clients_telephone | phone2numeric}}</td>
             <td>{{ client.clients_email }}</td>
             <td>{{ client.clients_comments}}</td>
+            <td><a href="#"><img width="20px" height="20px" src="{% static '/media/edit.png' %}"></a></td>
         </tr>
 
     {% endfor%}
