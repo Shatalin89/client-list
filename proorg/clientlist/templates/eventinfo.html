@@ -11,11 +11,11 @@
     </tr>
     {% for events in eventinfo %}
         <tr>
-            <td><a href="/event/get/{{ eventinfo.id }}/">{{ events.event_info_name }}</a></td>
+            <td><a href="/event/get/{{ events.id }}/">{{ events.event_info_name }}</a></td>
             <td>{{ events.event_info_description}}</td>
             <td>{{ events.event_info_poster }}</td>
         </tr>
     {% endfor%}
-    <tr><td><a href="/eventinfo/add/">Добавить мероприятие</a></td></tr>
+    <tr><td><a href="{% url 'eventinfoadd' %}">Добавить мероприятие</a></td></tr>
 </table>
 {% endblock %}

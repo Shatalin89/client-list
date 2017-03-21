@@ -23,8 +23,9 @@ class EventInfo(models.Model):
     class Meta:
         db_table = 'event_info'
     event_info_name = models.CharField(max_length = 100)
-    event_info_description = models.TextField(null=True)
-    event_info_poster = models.ImageField(null=True)
+    event_info_description = models.TextField(blank=True)
+    event_info_poster = models.ImageField(upload_to='media/', blank=True)
+    data_add = models.DateField(default=timezone.now, blank=True, null=True)
 
 
 class Event(models.Model):
@@ -33,4 +34,4 @@ class Event(models.Model):
     event_date = models.DateField(default=date.today)
     event_time = models.TimeField(default=timezone.now)
     event_infoid = models.ForeignKey(EventInfo)
-    event_enable = models. BooleanField(default=False)
+    event_enable = models.BooleanField(default=False)

@@ -56,8 +56,8 @@ ROOT_URLCONF = 'proorg.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['E:/python/home_work/client-list/proorg/templates/',
-                 'E:/python/home_work/client-list/proorg/clientlist/templates/'],
+        'DIRS': ['./templates/',
+                 './clientlist/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,8 +124,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     # ...
-    ("css", "E:/python/home_work/client-list/proorg/static/style/css/"),
-    ("foundation", "E:/python/home_work/client-list/proorg/static/style/foundation/"),
-    ("media", "E:/python/home_work/client-list/proorg/media"),
+    ("css", "./static/style/css/"),
+    ("foundation", "./static/style/foundation/"),
 ]
 
+MEDIA_ROOT = 'media/'
+
+MEDIA_URL = 'http://127.0.0.1:8000/media/'

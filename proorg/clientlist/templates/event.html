@@ -4,9 +4,8 @@
 <h2>Новое мероприятие</h2>
 
 <br>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form }}
+        <form enctype="multipart/form-data" action="{% url 'eventinfoadd' %}" method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
             <button type="submit" class="save btn btn-default">Добавить</button>
         </form>
 {% endblock %}

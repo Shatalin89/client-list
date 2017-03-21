@@ -3,10 +3,10 @@ from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from .models import Clients, EventInfo, Event
 from django.template.loader import get_template
-from .forms import ClientsForm, EentInfoForm
+from .forms import ClientsForm, EventInfoForm
 from django.template.context_processors import csrf
 from django.shortcuts import redirect
-
+from django.utils import timezone
 
 # Create your views here.
 #Список всех клиентов
@@ -52,5 +52,17 @@ def postclient(request):
 
 
 def event_info_new(request):
-    form = EentInfoForm()
-    return render(request, 'event.html', {'form': form})
+    if request.method == 'POST':
+        form = EventInfoForm(request.POST, request.FILES)
+        print(form.errors)
+        print(form.is_valid())
+        form.cleaned_data
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.data_add = timezone.now()
+            post.save()
+            return redirect('/eventsinfo/all/')
+    else:
+        form = EventInfoForm()
+        return render(request, 'event.html', {'form': form})
+
