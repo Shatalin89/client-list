@@ -14,6 +14,14 @@ def clients(request):
 #Список всех мероприятий
 def get_event_info(request):
     return render_to_response('eventinfo.html', {'eventinfo': EventInfo.objects.all()})
+
+
+def delevents(request, events_info_id):
+    print(events_info_id)
+    events_info = EventInfo.objects.get(id=events_info_id)
+    events_info.delete()
+    return redirect('/eventsinfo/all/')
+
 #Просмотр одного клиента
 def client(request, clients_id):
     args ={}
@@ -53,7 +61,6 @@ def postclient(request):
 def event_info_new(request):
     if request.method == 'POST':
         form = EventInfoForm(request.POST, request.FILES)
-        form.cleaned_data
         if form.is_valid():
             post = form.save(commit=False)
             post.data_add = timezone.now()
@@ -63,8 +70,3 @@ def event_info_new(request):
         form = EventInfoForm()
         return render(request, 'event.html', {'form': form})
 
-def del_events_info(request, events_info_id):
-    print(events_info_id)
-    events_info = EventInfo.objects.get(id=events_info_id)
-    events_info.delete()
-    return redirect('/eventsinfo/all/')

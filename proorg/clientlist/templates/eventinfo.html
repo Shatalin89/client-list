@@ -15,7 +15,7 @@
             <td><a href="/event/get/{{ events.id }}/">{{ events.event_info_name }}</a></td>
             <td>{{ events.event_info_description}}</td>
             <td><img width="210px" height="297px" src="{% static events.event_info_poster %}"/></td>
-             <td><a href="/eventinfo/del/{{ events.id }}">Удалить</a></td>
+             <td><a href="/eventinfo/del/{{ events.id }}/">Удалить</a></td>
         </tr>
     {% endfor%}
     <tr><td><a href="{% url 'eventinfoadd' %}">Добавить мероприятие</a></td></tr>
