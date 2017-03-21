@@ -24,7 +24,7 @@ class EventInfo(models.Model):
         db_table = 'event_info'
     event_info_name = models.CharField(max_length = 100)
     event_info_description = models.TextField(blank=True)
-    event_info_poster = models.ImageField(upload_to='media/', blank=True)
+    event_info_poster = models.ImageField(upload_to='image/', blank=True)
     data_add = models.DateField(default=timezone.now, blank=True, null=True)
 
 
