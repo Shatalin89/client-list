@@ -7,6 +7,9 @@ from .forms import ClientsForm, EventInfoForm
 from django.template.context_processors import csrf
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
+
+
 # Create your views here.
 #Список всех клиентов
 def clients(request):
@@ -15,12 +18,16 @@ def clients(request):
 def get_event_info(request):
     return render_to_response('eventinfo.html', {'eventinfo': EventInfo.objects.all()})
 
-
-def delevents(request, events_info_id):
-    print(events_info_id)
+def delevents(request, clients_id):
     events_info = EventInfo.objects.get(id=events_info_id)
     events_info.delete()
     return redirect('/eventsinfo/all/')
+
+def client_del(request, clients_id):
+    client = Clients.objects.get(id=clients_id)
+    client.delete()
+    return redirect('/clients/all/')
+
 
 #Просмотр одного клиента
 def client(request, clients_id):
@@ -57,6 +64,11 @@ def postclient(request):
         client.save()
     return redirect('/clients/all/')
 
+def client_edit(request, clients_id):
+    if request.POST:
+        client = get_object_or_404(Clients, clients_id)
+        print(client.clients_name)
+
 
 def event_info_new(request):
     if request.method == 'POST':
@@ -70,3 +82,16 @@ def event_info_new(request):
         form = EventInfoForm()
         return render(request, 'event.html', {'form': form})
 
+def event_info_edit(request, events_info_id):
+    event_info = get_object_or_404(EventInfo, id=events_info_id)
+    print(events_info_id)
+    if request.method == "POST":
+        form = EventInfoForm(request.POST, instance=event_info)
+        if form.is_valid():
+            event_info = form.save(commit=False)
+            event_info.data_add = timezone.now()
+            event_info.save()
+            return redirect('/eventsinfo/all/')
+    else:
+        form = EventInfoForm(instance=event_info)
+    return render(request, 'event.html', {'form': form})

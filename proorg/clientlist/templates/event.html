@@ -1,11 +1,11 @@
 {% extends 'index.html' %}
 
 {% block clients %}
-<h2>Новое мероприятие</h2>
+<h2>Мероприятие</h2>
 
 <br>
-        <form enctype="multipart/form-data" action="{% url 'eventinfoadd' %}" method="POST" class="post-form">{% csrf_token %}
+        <form enctype="multipart/form-data" method="POST" class="post-form">{% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="save btn btn-default">Добавить</button>
+            <input type="submit" class="button"value="Сохранить">
         </form>
 {% endblock %}

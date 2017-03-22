@@ -126,10 +126,8 @@ STATICFILES_DIRS = [
     # ...
     ("css", "./static/style/css/"),
     ("foundation", "./static/style/foundation/"),
-    ("media", "./static/media/"),
-    ("image", "./static/media/image/"),
 ]
 
-MEDIA_ROOT = './static/media/'
+MEDIA_ROOT = 'media/'
 
-MEDIA_URL = 'http://127.0.0.1:8000/'
+MEDIA_URL = 'http://127.0.0.1:8000/media/'
