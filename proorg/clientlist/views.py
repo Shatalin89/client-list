@@ -11,31 +11,21 @@ from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
+
+
 #Список всех клиентов
 def clients(request):
     return render_to_response('clientlist.html', {'clients': Clients.objects.all()})
-#Список всех мероприятий
-def get_event_info(request):
-    return render_to_response('eventinfo.html', {'eventinfo': EventInfo.objects.all()})
 
-def delevents(request, clients_id):
-    events_info = EventInfo.objects.get(id=events_info_id)
-    events_info.delete()
-    return redirect('/eventsinfo/all/')
 
+
+#Удаление клиента
 def client_del(request, clients_id):
     client = Clients.objects.get(id=clients_id)
     client.delete()
     return redirect('/clients/all/')
 
 
-#Просмотр одного клиента
-def client(request, clients_id):
-    args ={}
-    args.update(csrf(request))
-    args['client'] = Clients.objects.get(id=clients_id)
-    args['status'] = 'disabled'
-    return render_to_response('client.html', args)
 
 #Главная страница
 def index(request):
@@ -43,12 +33,7 @@ def index(request):
     html = t.render()
     return HttpResponse(html)
 
-#Вызов страницы добавления клиента
-def addclient(request):
-    args ={}
-    args.update(csrf(request))
-    args['status'] = 'enable'
-    return render_to_response('client.html', args)
+
 
 #Обработка добавления клиента
 def postclient(request):
@@ -64,12 +49,47 @@ def postclient(request):
         client.save()
     return redirect('/clients/all/')
 
+#Просмотр одного клиента
+def client(request, clients_id):
+    args ={}
+    args.update(csrf(request))
+    args['client'] = Clients.objects.get(id=clients_id)
+    args['status'] = 'disabled'
+    args['action'] = 'view'
+    return render_to_response('client.html', args)
+
+#Вызов страницы добавления клиента
+def addclient(request):
+    args ={}
+    args.update(csrf(request))
+    args['status'] = 'enable'
+    args['action'] = 'add'
+    return render_to_response('client.html', args)
+
+#Вызов страницы редактирования клиента
+def show_client_edit(request, clients_id):
+    args ={}
+    args.update(csrf(request))
+    args['client'] = Clients.objects.get(id=clients_id)
+    args['status'] = 'enable'
+    args['action'] = 'edit'
+    return render_to_response('client.html', args)
+
+#Применение изменения редактирования клиента
 def client_edit(request, clients_id):
+    client = Clients.objects.get(id=clients_id)
     if request.POST:
-        client = get_object_or_404(Clients, clients_id)
-        print(client.clients_name)
+        client.clients_name = request.POST['clients_name']
+        client.clients_middlename = request.POST['clients_middlename']
+        client.clients_lastname = request.POST['clients_lastname']
+        client.clients_age = request.POST['clients_age']
+        client.clients_telephone = request.POST['clients_telephone']
+        client.clients_email = request.POST['clients_email']
+        client.clients_comments = request.POST['clients_comments']
+        client.save()
+        return redirect('/clients/all/')
 
-
+#Новая запись информации о мероприятии
 def event_info_new(request):
     if request.method == 'POST':
         form = EventInfoForm(request.POST, request.FILES)
@@ -86,7 +106,7 @@ def event_info_edit(request, events_info_id):
     event_info = get_object_or_404(EventInfo, id=events_info_id)
     print(events_info_id)
     if request.method == "POST":
-        form = EventInfoForm(request.POST, instance=event_info)
+        form = EventInfoForm(request.POST, request.FILES, instance=event_info)
         if form.is_valid():
             event_info = form.save(commit=False)
             event_info.data_add = timezone.now()
@@ -95,3 +115,13 @@ def event_info_edit(request, events_info_id):
     else:
         form = EventInfoForm(instance=event_info)
     return render(request, 'event.html', {'form': form})
+
+#Список всех мероприятий
+def get_event_info(request):
+    return render_to_response('eventinfo.html', {'eventinfo': EventInfo.objects.all()})
+
+#удаление мероприятия
+def delevents(request, events_info_id):
+    events_info = EventInfo.objects.get(id=events_info_id)
+    events_info.delete()
+    return redirect('/eventsinfo/all/')

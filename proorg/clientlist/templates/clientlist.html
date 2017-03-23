@@ -19,7 +19,7 @@
             <td>{{ client.clients_telephone | phone2numeric}}</td>
             <td>{{ client.clients_email }}</td>
             <td>{{ client.clients_comments}}</td>
-            <td><a href="#"><img width="20px" height="20px" src="{% static '/media/edit.png' %}"></a></td>
+            <td><a href="{% url 'show_client_edit' clients_id=client.id %}"><img width="20px" height="20px" src="{% static '/media/edit.png' %}"></a></td>
             <td><a href="{% url 'clientdel' clients_id=client.id %}"><img width="20px" height="20px" src="{% static '/media/del.png' %}"></a></td>
         </tr>
 

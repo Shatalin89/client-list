@@ -2,7 +2,11 @@
 
 {% block clients %}
 
+{% if action == 'add' %}
  <form action="/client/post/" method="post" >
+{% elif action == 'edit' %}
+ <form action="{% url 'client_edit' clients_id=client.id%}" method="post" >
+{% endif %}
      {% csrf_token %}
      <p>Фамилия:<input type="text" name="clients_lastname" value="{{ client.clients_lastname }}" {{ status }}></p>
      <p>Имя:<input type="text" name="clients_name" value="{{ client.clients_name }}" {{ status }}></p>
