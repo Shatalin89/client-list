@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+
+{% block clients %}
+<table>
+    <caption>Список залов</caption>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Адресс</th>
+    </tr>
+{% for hall in hallinfo %}
+    <tr>
+        <th>{{ hall.id }}</th>
+        <th>{{ hall.hall_name }}</th>
+        <th>{{ hall.hall_address }}</th>
+    </tr>
+{% endfor %}
+    <tr>
+        <td><a href="{% url 'hallinfoadd' %}">Добавить зал</a></td>
+    </tr>
+</table>
+{% endblock %}

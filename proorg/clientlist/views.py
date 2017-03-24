@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from .models import Clients, EventInfo, Event
+from .models import Hall
 from django.template.loader import get_template
-from .forms import ClientsForm, EventInfoForm
+from .forms import ClientsForm, EventInfoForm, HallForm
 from django.template.context_processors import csrf
 from django.shortcuts import redirect
 from django.utils import timezone
@@ -125,3 +126,18 @@ def delevents(request, events_info_id):
     events_info = EventInfo.objects.get(id=events_info_id)
     events_info.delete()
     return redirect('/eventsinfo/all/')
+
+
+def get_hall_info(request):
+    return render_to_response('halls.html', {'hallinfo': Hall.objects.all()})
+
+
+def add_hall_info(request):
+    if request.POST:
+        form = HallForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/hallinfo/all/')
+    else:
+        form = HallForm()
+        return render(request, 'hall.html', {'form': form})

@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Clients, EventInfo
+from .models import Clients, EventInfo, Hall
 
 class ClientsForm(forms.ModelForm):
     class Meta:
@@ -15,3 +15,11 @@ class EventInfoForm(forms.ModelForm):
     class Meta:
         model = EventInfo
         fields = ('event_info_name', 'event_info_description', 'event_info_poster')
+
+
+class HallForm(forms.ModelForm):
+    hall_name = forms.CharField(label=u'Название зала')
+    hall_address = forms.CharField(label = u'Адресс зала')
+    class Meta:
+        model = Hall
+        fields = ('hall_name', 'hall_address')

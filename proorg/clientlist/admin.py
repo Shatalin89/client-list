@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Clients, EventInfo, Event
+from  clientlist import models
 
 # Register your models here.
 
@@ -9,6 +9,11 @@ class ClientAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(EventInfo)
-admin.site.register(Clients, ClientAdmin)
-admin.site.register(Event)
+admin.site.register(models.EventInfo)
+admin.site.register(models.Clients, ClientAdmin)
+admin.site.register(models.Event)
+admin.site.register(models.Hall)
+admin.site.register(models.PlaceInfo)
+admin.site.register(models.PlaceScheme)
+admin.site.register(models.StatusPlace)
+admin.site.register(models.EventPlacePrice)

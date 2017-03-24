@@ -1,7 +1,8 @@
 from django.db import models
 from datetime import date
 from django.utils import timezone
-
+from djmoney.models.fields import MoneyField
+from datetime import datetime
 # Create your models here.
 class Clients(models.Model):
     class Meta:
@@ -27,11 +28,52 @@ class EventInfo(models.Model):
     event_info_poster = models.ImageField(upload_to='image/', blank=True)
     data_add = models.DateField(default=timezone.now, blank=True, null=True)
 
-
 class Event(models.Model):
     class Meta:
         db_table = 'event'
+    event_infoid = models.ForeignKey(EventInfo)
     event_date = models.DateField(default=date.today)
     event_time = models.TimeField(default=timezone.now)
-    event_infoid = models.ForeignKey(EventInfo)
     event_enable = models.BooleanField(default=False)
+
+class Hall(models.Model):
+    class Meta:
+        db_table = 'hall'
+    hall_name = models.CharField(max_length = 100)
+    hall_address = models.CharField(max_length = 100, blank = True)
+
+
+class PlaceInfo(models.Model):
+    class Meta:
+        db_table = 'place_info'
+    place_scheme_name = models.CharField(max_length = 100)
+    place_sheme_hall = models.ForeignKey(Hall, blank=True, null=True)
+    place_max_places = models.IntegerField(default=10)
+
+
+class PlaceScheme(models.Model):
+    class Meta:
+        db_table = 'place_scheme'
+    place_name = models.CharField(max_length = 20, default='Входной')
+    place_raw = models.IntegerField(blank=True, null=True)
+    place_places = models.IntegerField(blank=True, null=True)
+    place_scheme_id = models.ForeignKey(PlaceInfo, blank=True, null=True)
+
+class StatusPlace(models.Model):
+    class Meta:
+        db_table = 'status_place'
+    status_name = models.CharField(max_length=20)
+
+
+class EventPlacePrice(models.Model):
+    class Meta:
+        db_table = 'event_place_price'
+    epp_event = models.ForeignKey(Event)
+    epp_place = models.ForeignKey(PlaceScheme, blank=True, null=True)
+    epp_place_status = models.ForeignKey(StatusPlace)
+    epp_client = models.ForeignKey(Clients)
+    epp_place_price = MoneyField(max_digits=10, decimal_places=2, default_currency='RUB')
+    epp_place_made_price = MoneyField(max_digits=10, decimal_places=2, default_currency='RUB')
+    epp_datetime_price = models.DateTimeField(default=datetime.now)
+
+

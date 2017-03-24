@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from .views import client, clients, index, addclient, postclient, client_del, client_edit, show_client_edit
 from .views import event_info_edit,get_event_info, event_info_new, delevents
+from .views import get_hall_info, add_hall_info
 
 
 urlpatterns = [
@@ -13,9 +14,12 @@ urlpatterns = [
     url(r'^client/edit/show/(?P<clients_id>\d+)/$', show_client_edit, name='show_client_edit'),
 
     url(r'^eventsinfo/all/$', get_event_info),
+
     url(r'^eventinfo/add/$', event_info_new, name='eventinfoadd'),
     url(r'^eventinfo/edit/(?P<events_info_id>\d+)/$', event_info_edit, name='event_info_edit'),
     url(r'^eventinfo/del/(?P<events_info_id>\d+)/$', delevents, name='eventinfodel'),
 
+    url(r'^hallinfo/all/$', get_hall_info, name='hallinfoall'),
+    url(r'^hallinfo/add/$', add_hall_info, name='hallinfoadd'),
     url(r'^', index),
 ]
