@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from .views import client, clients, index, addclient, postclient, client_del, client_edit, show_client_edit
 from .views import event_info_edit,get_event_info, event_info_new, delevents
-from .views import get_hall_info, add_hall_info
+from .views import get_hall_info, add_hall_info, del_hall_info, edit_hall_info
 
 
 urlpatterns = [
@@ -21,5 +21,7 @@ urlpatterns = [
 
     url(r'^hallinfo/all/$', get_hall_info, name='hallinfoall'),
     url(r'^hallinfo/add/$', add_hall_info, name='hallinfoadd'),
+    url(r'^hallinfo/del/(?P<hall_info_id>\d+)/$', del_hall_info, name='hallinfodel'),
+    url(r'^hallinfo/edit/(?P<hall_info_id>\d+)/$', edit_hall_info, name='hallinfoedit'),
     url(r'^', index),
 ]

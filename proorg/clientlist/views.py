@@ -141,3 +141,22 @@ def add_hall_info(request):
     else:
         form = HallForm()
         return render(request, 'hall.html', {'form': form})
+
+
+def del_hall_info(request, hall_info_id):
+    hall_info = Hall.objects.get(id=hall_info_id)
+    hall_info.delete()
+    return redirect('/hallinfo/all/')
+
+
+def edit_hall_info(request, hall_info_id):
+    hall_info = get_object_or_404(Hall, id=hall_info_id)
+    if request.method == "POST":
+        form = HallForm(request.POST, instance=hall_info)
+        if form.is_valid():
+            hall_info = form.save(commit=False)
+            hall_info.save()
+            return redirect('/hallinfo/all/')
+    else:
+        form = HallForm(instance=hall_info)
+    return render(request, 'hall.html', {'form': form})
