@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block clients %}
+{% load staticfiles %}
+<table>
+    <caption>Список схем</caption>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Тип схемы</th>
+        <th>Какой зал</th>
+    </tr>
+{% for place in places %}
+    <tr>
+        <td>{{ place.id }}</td>
+        <td>{{ place.place_scheme_name }}</td>
+        <td>{{ place.place_type_scheme }}</td>
+        <td>{{ place.place_sheme_hall }}</td>
+        <td align="center"><a href="#"><img width="20px" height="20px" src="{% static '/media/edit.png' %}"></a></td>
+        <td align="center"><a href="#"><img width="20px" height="20px" src="{% static '/media/del.png' %}"></a></td>
+    </tr>
+{% endfor %}
+    <tr>
+        <td><a href="{% url 'placeinfoadd' %}">Добавить схему</a></td>
+    </tr>
+</table>
+
+
+{% endblock %}

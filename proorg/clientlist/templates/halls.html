@@ -8,12 +8,14 @@
         <th>ID</th>
         <th>Название</th>
         <th>Адресс</th>
+        <th>Кол-во мест</th>
     </tr>
 {% for hall in hallinfo %}
     <tr>
         <td>{{ hall.id }}</td>
         <td>{{ hall.hall_name }}</td>
         <td>{{ hall.hall_address }}</td>
+        <td>{{ hall.hall_max_places }}</td>
         <td align="center"><a href="{% url 'hallinfoedit' hall_info_id=hall.id %}"><img width="20px" height="20px" src="{% static '/media/edit.png' %}"></a></td>
         <td align="center"><a href="{% url 'hallinfodel' hall_info_id=hall.id %}"><img width="20px" height="20px" src="{% static '/media/del.png' %}"></a></td>
     </tr>

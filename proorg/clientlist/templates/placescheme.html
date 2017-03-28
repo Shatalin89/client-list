@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block clients %}
+{% load staticfiles %}
+<h2>Схема</h2>
+
+<br>
+        <form enctype="multipart/form-data" method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="button"value="Сохранить">
+        </form>
+
+{% endblock %}

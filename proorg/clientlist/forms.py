@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Clients, EventInfo, Hall
+from .models import Clients, EventInfo, Hall, PlaceInfo
 
 class ClientsForm(forms.ModelForm):
     class Meta:
@@ -20,6 +20,13 @@ class EventInfoForm(forms.ModelForm):
 class HallForm(forms.ModelForm):
     hall_name = forms.CharField(label=u'Название зала')
     hall_address = forms.CharField(label = u'Адресс зала')
+    hall_max_places = forms.IntegerField(label = u'Кол-во мест')
     class Meta:
         model = Hall
-        fields = ('hall_name', 'hall_address')
+        fields = ('hall_name', 'hall_address', 'hall_max_places')
+
+
+class PlaceInfoForm(forms.ModelForm):
+    class Meta:
+        model = PlaceInfo
+        exclude = []

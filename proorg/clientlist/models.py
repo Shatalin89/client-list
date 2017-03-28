@@ -41,14 +41,26 @@ class Hall(models.Model):
         db_table = 'hall'
     hall_name = models.CharField(max_length = 100)
     hall_address = models.CharField(max_length = 100, blank = True)
+    hall_max_places = models.IntegerField(default=10, blank = True, null=True)
 
+    def __str__(self):
+        return self.hall_name
+
+class TypeScheme(models.Model):
+    class Meta:
+        db_table = 'type_scheme'
+    type_scheme_name = models.CharField(max_length = 30)
+
+    def __str__(self):
+        return self.type_scheme_name
 
 class PlaceInfo(models.Model):
     class Meta:
         db_table = 'place_info'
     place_scheme_name = models.CharField(max_length = 100)
     place_sheme_hall = models.ForeignKey(Hall, blank=True, null=True)
-    place_max_places = models.IntegerField(default=10)
+    place_type_scheme = models.ForeignKey(TypeScheme)
+
 
 
 class PlaceScheme(models.Model):
@@ -59,10 +71,14 @@ class PlaceScheme(models.Model):
     place_places = models.IntegerField(blank=True, null=True)
     place_scheme_id = models.ForeignKey(PlaceInfo, blank=True, null=True)
 
+
 class StatusPlace(models.Model):
     class Meta:
         db_table = 'status_place'
     status_name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return status_name
 
 
 class EventPlacePrice(models.Model):

@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from .models import Clients, EventInfo, Event
-from .models import Hall
+from .models import Hall, PlaceInfo
 from django.template.loader import get_template
-from .forms import ClientsForm, EventInfoForm, HallForm
+from .forms import ClientsForm, EventInfoForm, HallForm, PlaceInfoForm
 from django.template.context_processors import csrf
 from django.shortcuts import redirect
 from django.utils import timezone
@@ -160,3 +160,20 @@ def edit_hall_info(request, hall_info_id):
     else:
         form = HallForm(instance=hall_info)
     return render(request, 'hall.html', {'form': form})
+
+
+def get_place_info(request):
+    return render_to_response('places.html', {'places': PlaceInfo.objects.all()})
+
+
+def add_place_info(request):
+    if request.POST:
+        form = PlaceInfoForm(request.POST)
+        if form.is_valid():
+            place_info = form.save(commit=False)
+            print(place_info.place_type_scheme.id)
+            return redirect('/placeinfo/all/')
+    else:
+        form = PlaceInfoForm()
+        return render(request, 'placescheme.html', {'form': form})
+
