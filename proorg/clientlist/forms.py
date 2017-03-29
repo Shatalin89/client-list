@@ -27,6 +27,7 @@ class HallForm(forms.ModelForm):
 
 
 class PlaceInfoForm(forms.ModelForm):
+
     class Meta:
         model = PlaceInfo
-        exclude = []
+        exclude = ['place_flag_set_sceme']

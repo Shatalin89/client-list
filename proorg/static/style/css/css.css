@@ -246,5 +246,6 @@ a:hover {
     top: 1px;
 }
 
-
-tr
+footer {
+    text-align: right
+}

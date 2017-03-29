@@ -2,6 +2,7 @@
 
 {% block clients %}
 {% load staticfiles %}
+
 <table>
     <caption>Список схем</caption>
     <tr>
@@ -9,13 +10,28 @@
         <th>Название</th>
         <th>Тип схемы</th>
         <th>Какой зал</th>
+        <th>Установка схемы</th>
     </tr>
 {% for place in places %}
     <tr>
         <td>{{ place.id }}</td>
         <td>{{ place.place_scheme_name }}</td>
         <td>{{ place.place_type_scheme }}</td>
-        <td>{{ place.place_sheme_hall }}</td>
+        <td>{{ place.place_sheme_hall  }} ({{ place.place_sheme_hall.hall_max_places }} мест)</td>
+        <td>
+            {% if place.place_flag_set_sceme == False %}
+            <form action="{% url 'placescemeadd' place_info_id=place.id %}" method="post">{% csrf_token %}
+                {% if place.place_type_scheme.id == 1 %}
+                    <input type="number" name='place_count' maxlength="1000" size="20">
+                    <input type="submit" method="POST" class="button"value="Сохранить">
+                {% elif place.place_type_scheme.id == 2 %}
+                    <input type="file">
+                {% endif%}
+            </form>
+            {% else %}
+                Схема установлена
+            {% endif%}
+        </td>
         <td align="center"><a href="#"><img width="20px" height="20px" src="{% static '/media/edit.png' %}"></a></td>
         <td align="center"><a href="#"><img width="20px" height="20px" src="{% static '/media/del.png' %}"></a></td>
     </tr>

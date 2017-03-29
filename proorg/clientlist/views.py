@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from .models import Clients, EventInfo, Event
-from .models import Hall, PlaceInfo
+from .models import Hall, PlaceInfo, PlaceScheme
 from django.template.loader import get_template
 from .forms import ClientsForm, EventInfoForm, HallForm, PlaceInfoForm
 from django.template.context_processors import csrf
@@ -163,17 +163,35 @@ def edit_hall_info(request, hall_info_id):
 
 
 def get_place_info(request):
-    return render_to_response('places.html', {'places': PlaceInfo.objects.all()})
+    args = {}
+    args.update(csrf(request))
+    args['places'] = PlaceInfo.objects.all()
+    return render_to_response('places.html', args)
 
 
 def add_place_info(request):
     if request.POST:
         form = PlaceInfoForm(request.POST)
         if form.is_valid():
-            place_info = form.save(commit=False)
-            print(place_info.place_type_scheme.id)
+            form.save()
+
             return redirect('/placeinfo/all/')
     else:
         form = PlaceInfoForm()
         return render(request, 'placescheme.html', {'form': form})
 
+
+def add_place_scheme(request, place_info_id):
+    if request.POST:
+        count = int(request.POST['place_count'])
+        place_info = PlaceInfo.objects.get(id=place_info_id)
+        max_count = place_info.place_sheme_hall.hall_max_places
+
+        if place_info.place_type_scheme.id == 1:
+            if count < max_count:
+                for i in range(count):
+                    PlaceScheme(place_name='Входной №' + str(i), place_raw=1, place_places=i, place_scheme_id=place_info_id, place_x=30 * i, place_y=0).save()
+
+                place_info.place_flag_set_sceme = True
+                place_info.save()
+        return redirect('/placeinfo/all/')

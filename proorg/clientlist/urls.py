@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from .views import client, clients, index, addclient, postclient, client_del, client_edit, show_client_edit
 from .views import event_info_edit,get_event_info, event_info_new, delevents
 from .views import get_hall_info, add_hall_info, del_hall_info, edit_hall_info
-from .views import get_place_info, add_place_info
+from .views import get_place_info, add_place_info, add_place_scheme
 
 
 urlpatterns = [
@@ -27,6 +27,10 @@ urlpatterns = [
 
     url(r'^placeinfo/all/$', get_place_info, name='placeinfoall'),
     url(r'^placeinfo/add/$', add_place_info, name='placeinfoadd'),
+
+    url(r'^placescheme/add/(?P<place_info_id>\d+)/$', add_place_scheme, name='placescemeadd'),
+
+
 
     url(r'^', index),
 ]

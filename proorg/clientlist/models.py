@@ -60,6 +60,7 @@ class PlaceInfo(models.Model):
     place_scheme_name = models.CharField(max_length = 100)
     place_sheme_hall = models.ForeignKey(Hall, blank=True, null=True)
     place_type_scheme = models.ForeignKey(TypeScheme)
+    place_flag_set_sceme = models.BooleanField(default=False)
 
 
 
@@ -69,6 +70,8 @@ class PlaceScheme(models.Model):
     place_name = models.CharField(max_length = 20, default='Входной')
     place_raw = models.IntegerField(blank=True, null=True)
     place_places = models.IntegerField(blank=True, null=True)
+    place_x = models.IntegerField(blank=True, null=True)
+    place_y = models.IntegerField(blank=True, null=True)
     place_scheme_id = models.ForeignKey(PlaceInfo, blank=True, null=True)
 
 
