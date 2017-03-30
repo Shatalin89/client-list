@@ -8,7 +8,6 @@ class ClientAdmin(admin.ModelAdmin):
               'clients_email']
 
 
-
 admin.site.register(models.EventInfo)
 admin.site.register(models.Clients, ClientAdmin)
 admin.site.register(models.Event)
@@ -18,3 +17,4 @@ admin.site.register(models.PlaceScheme)
 admin.site.register(models.StatusPlace)
 admin.site.register(models.EventPlacePrice)
 admin.site.register(models.TypeScheme)
+admin.site.register(models.PlaceSector)

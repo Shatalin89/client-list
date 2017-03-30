@@ -4,6 +4,7 @@ from django.utils import timezone
 from djmoney.models.fields import MoneyField
 from datetime import datetime
 # Create your models here.
+
 class Clients(models.Model):
     class Meta:
         db_table = 'clients'
@@ -28,6 +29,7 @@ class EventInfo(models.Model):
     event_info_poster = models.ImageField(upload_to='image/', blank=True)
     data_add = models.DateField(default=timezone.now, blank=True, null=True)
 
+
 class Event(models.Model):
     class Meta:
         db_table = 'event'
@@ -35,6 +37,7 @@ class Event(models.Model):
     event_date = models.DateField(default=date.today)
     event_time = models.TimeField(default=timezone.now)
     event_enable = models.BooleanField(default=False)
+
 
 class Hall(models.Model):
     class Meta:
@@ -46,6 +49,7 @@ class Hall(models.Model):
     def __str__(self):
         return self.hall_name
 
+
 class TypeScheme(models.Model):
     class Meta:
         db_table = 'type_scheme'
@@ -54,6 +58,7 @@ class TypeScheme(models.Model):
     def __str__(self):
         return self.type_scheme_name
 
+
 class PlaceInfo(models.Model):
     class Meta:
         db_table = 'place_info'
@@ -61,8 +66,16 @@ class PlaceInfo(models.Model):
     place_sheme_hall = models.ForeignKey(Hall, blank=True, null=True)
     place_type_scheme = models.ForeignKey(TypeScheme)
     place_flag_set_sceme = models.BooleanField(default=False)
+    place_current_count = models.IntegerField(blank=True, null=True)
 
 
+class PlaceSector(models.Model):
+    class Meta:
+        db_table = 'place_sector'
+    sector_name = models.CharField(max_length = 20)
+
+    def __str__(self):
+        return self.sector_name
 
 class PlaceScheme(models.Model):
     class Meta:
@@ -72,7 +85,11 @@ class PlaceScheme(models.Model):
     place_places = models.IntegerField(blank=True, null=True)
     place_x = models.IntegerField(blank=True, null=True)
     place_y = models.IntegerField(blank=True, null=True)
+    place_sector = models.ForeignKey(PlaceSector, default=1)
     place_scheme_id = models.ForeignKey(PlaceInfo, blank=True, null=True)
+
+    def __str__(self):
+        return self.place_scheme_id.place_scheme_name +' '+self.place_name
 
 
 class StatusPlace(models.Model):
@@ -81,8 +98,7 @@ class StatusPlace(models.Model):
     status_name = models.CharField(max_length=20)
 
     def __str__(self):
-        return status_name
-
+        return self.status_name
 
 class EventPlacePrice(models.Model):
     class Meta:
@@ -95,4 +111,5 @@ class EventPlacePrice(models.Model):
     epp_place_made_price = MoneyField(max_digits=10, decimal_places=2, default_currency='RUB')
     epp_datetime_price = models.DateTimeField(default=datetime.now)
 
-
+    def __str__(self):
+        return self.epp_event

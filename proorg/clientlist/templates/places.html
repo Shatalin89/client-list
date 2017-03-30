@@ -18,7 +18,7 @@
         <td>{{ place.place_scheme_name }}</td>
         <td>{{ place.place_type_scheme }}</td>
         <td>{{ place.place_sheme_hall  }} ({{ place.place_sheme_hall.hall_max_places }} мест)</td>
-        <td>
+        <td align="center">
             {% if place.place_flag_set_sceme == False %}
             <form action="{% url 'placescemeadd' place_info_id=place.id %}" method="post">{% csrf_token %}
                 {% if place.place_type_scheme.id == 1 %}
@@ -29,7 +29,7 @@
                 {% endif%}
             </form>
             {% else %}
-                Схема установлена
+                Схема установлена ({{place.place_current_count}} мест)
             {% endif%}
         </td>
         <td align="center"><a href="#"><img width="20px" height="20px" src="{% static '/media/edit.png' %}"></a></td>

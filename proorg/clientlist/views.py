@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from .models import Clients, EventInfo, Event
-from .models import Hall, PlaceInfo, PlaceScheme
+from .models import Hall, PlaceInfo, PlaceScheme, PlaceSector
 from django.template.loader import get_template
 from .forms import ClientsForm, EventInfoForm, HallForm, PlaceInfoForm
 from django.template.context_processors import csrf
@@ -19,7 +19,6 @@ def clients(request):
     return render_to_response('clientlist.html', {'clients': Clients.objects.all()})
 
 
-
 #Удаление клиента
 def client_del(request, clients_id):
     client = Clients.objects.get(id=clients_id)
@@ -27,13 +26,11 @@ def client_del(request, clients_id):
     return redirect('/clients/all/')
 
 
-
 #Главная страница
 def index(request):
     t = get_template('index.html')
     html = t.render()
     return HttpResponse(html)
-
 
 
 #Обработка добавления клиента
@@ -50,6 +47,7 @@ def postclient(request):
         client.save()
     return redirect('/clients/all/')
 
+
 #Просмотр одного клиента
 def client(request, clients_id):
     args ={}
@@ -59,6 +57,7 @@ def client(request, clients_id):
     args['action'] = 'view'
     return render_to_response('client.html', args)
 
+
 #Вызов страницы добавления клиента
 def addclient(request):
     args ={}
@@ -66,6 +65,7 @@ def addclient(request):
     args['status'] = 'enable'
     args['action'] = 'add'
     return render_to_response('client.html', args)
+
 
 #Вызов страницы редактирования клиента
 def show_client_edit(request, clients_id):
@@ -75,6 +75,7 @@ def show_client_edit(request, clients_id):
     args['status'] = 'enable'
     args['action'] = 'edit'
     return render_to_response('client.html', args)
+
 
 #Применение изменения редактирования клиента
 def client_edit(request, clients_id):
@@ -90,6 +91,7 @@ def client_edit(request, clients_id):
         client.save()
         return redirect('/clients/all/')
 
+
 #Новая запись информации о мероприятии
 def event_info_new(request):
     if request.method == 'POST':
@@ -102,6 +104,7 @@ def event_info_new(request):
     else:
         form = EventInfoForm()
         return render(request, 'event.html', {'form': form})
+
 
 def event_info_edit(request, events_info_id):
     event_info = get_object_or_404(EventInfo, id=events_info_id)
@@ -117,9 +120,11 @@ def event_info_edit(request, events_info_id):
         form = EventInfoForm(instance=event_info)
     return render(request, 'event.html', {'form': form})
 
+
 #Список всех мероприятий
 def get_event_info(request):
     return render_to_response('eventinfo.html', {'eventinfo': EventInfo.objects.all()})
+
 
 #удаление мероприятия
 def delevents(request, events_info_id):
@@ -174,7 +179,6 @@ def add_place_info(request):
         form = PlaceInfoForm(request.POST)
         if form.is_valid():
             form.save()
-
             return redirect('/placeinfo/all/')
     else:
         form = PlaceInfoForm()
@@ -186,12 +190,12 @@ def add_place_scheme(request, place_info_id):
         count = int(request.POST['place_count'])
         place_info = PlaceInfo.objects.get(id=place_info_id)
         max_count = place_info.place_sheme_hall.hall_max_places
-
         if place_info.place_type_scheme.id == 1:
+            place_sector = PlaceSector.objects.get(id=1)
             if count < max_count:
                 for i in range(count):
-                    PlaceScheme(place_name='Входной №' + str(i), place_raw=1, place_places=i, place_scheme_id=place_info_id, place_x=30 * i, place_y=0).save()
-
+                    place_sceheme = PlaceScheme(place_name='Входной №' + str(i+1), place_raw=1, place_places=i+1, place_sector=place_sector, place_scheme_id=place_info, place_x=30 * i, place_y=0)
+                    place_sceheme.save()
                 place_info.place_flag_set_sceme = True
                 place_info.save()
         return redirect('/placeinfo/all/')
