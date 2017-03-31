@@ -92,6 +92,7 @@ class PlaceScheme(models.Model):
         return self.place_scheme_id.place_scheme_name +' '+self.place_name
 
 
+
 class StatusPlace(models.Model):
     class Meta:
         db_table = 'status_place'
@@ -104,7 +105,8 @@ class EventPlacePrice(models.Model):
     class Meta:
         db_table = 'event_place_price'
     epp_event = models.ForeignKey(Event)
-    epp_place = models.ForeignKey(PlaceScheme, blank=True, null=True)
+    epp_place = models.ForeignKey(PlaceInfo, blank=True, null=True)
+    epp_place_scheme = models.ForeignKey(PlaceScheme, blank=True, null=True)
     epp_place_status = models.ForeignKey(StatusPlace)
     epp_client = models.ForeignKey(Clients)
     epp_place_price = MoneyField(max_digits=10, decimal_places=2, default_currency='RUB')
@@ -113,3 +115,6 @@ class EventPlacePrice(models.Model):
 
     def __str__(self):
         return self.epp_event
+
+
+

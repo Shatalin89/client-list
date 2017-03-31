@@ -199,3 +199,7 @@ def add_place_scheme(request, place_info_id):
                 place_info.place_flag_set_sceme = True
                 place_info.save()
         return redirect('/placeinfo/all/')
+
+
+def add_event(request):
+    epp = PlaceScheme.objects.get(place_scheme_id=1)
